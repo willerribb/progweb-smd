@@ -97,6 +97,23 @@ public class Main {
     public static void repeticao() {
         Scanner scanner = new Scanner(System.in);
 
+        System.out.print("Questão 11! Escolha um número, entre 0 e 10, e eu te mostro a tabuada dele: ");
+        int tabuada = scanner.nextInt();
+        if(tabuada > 10 || tabuada < 0) System.out.println("Eu disse entre 0 e 10...");
+        else for(int i = 1; i <= 10; i++) System.out.printf("%d x %d = %d%n", tabuada, i, tabuada * i);
+
+        System.out.print("Questão 12! Digite uma nota, entre 0 e 10: ");
+        int nota = scanner.nextInt();
+        while (nota > 10 || nota < 0) {
+            System.out.print("Número inválido! Eu disse 'entre 0 e 10'... Tente novamente: ");
+            nota = scanner.nextInt();
+        }
+        System.out.println("Número válido!");
+
+        //System.out.print("Questão 13! Digite o número total de eleitores: ");
+
+        System.out.print("Questão 14...")
+
         scanner.close();
     }
 
