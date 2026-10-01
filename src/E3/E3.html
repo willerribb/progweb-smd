@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>PROG WEB E3</title>
+    <script type="text/javascript">
+        function validarCampoTextoObrigatorio(id) {
+            var el = document.getElementById(id);
+            if (el == null) return false;
+            if (el.value == null || el.value.length == 0 || (/^\s+$/.test(el.value))) return false
+            return true;
+        }
+
+        function validarEx1() {
+            if (!validarCampoTextoObrigatorio('ex1_texto')) {
+                window.alert("Questão 1: O campo texto é obrigatório e deve ser preenchido!");
+                return false;
+            }
+            window.alert("Questão 1: Validação bem sucedida!");
+            return false;
+        }
+
+        function validarEx2() {
+            if (!validarCampoTextoObrigatorio('ex2_texto')) {
+                window.alert("Questão 2: Preencha o campo de texto.");
+                return;
+            }
+            var valor = document.getElementById('ex2_texto').value;
+            if (valor.length < 1 || valor.length > 10) {
+                window.alert("Questão 2: O campo deve ter no mínimo 1 e no máximo 10 caracteres!");
+            } else {
+                window.alert("Questão 2: Validação bem sucedida!");
+            }
+        }
+
+        function validarEx3() {
+            if (!validarCampoTextoObrigatorio('ex3_texto')) {
+                window.alert("Questão 3: Preencha o campo.");
+                return;
+            }
+            var valor = document.getElementById('ex3_texto').value;
+            if (isNaN(valor) || parseInt(valor) <= 0 || !Number.isInteger(Number(valor))) {
+                window.alert("Questão 3: O campo deve ser um número inteiro positivo válido!");
+            } else {
+                window.alert("Questão 3: Validação bem sucedida! Número: " + valor);
+            }
+        }
+
+        function validarEx4() {
+            var indice = document.getElementById('ex4_select').selectedIndex;
+            if (indice == null || indice <= 0) {
+                window.alert("Questão 4: Selecione uma opção válida (diferente da primeira)!");
+            } else {
+                window.alert("Questão 4: Validação bem sucedida!");
+            }
+        }
+
+        function validarEx5() {
+            var elemento = document.getElementById('ex5_checkbox');
+            if (!elemento.checked) {
+                window.alert("Questão 5: O campo checkbox DEVE estar selecionado!");
+            } else {
+                window.alert("Questão 5: Validação bem sucedida!");
+            }
+        }
+
+        function contarEx6() {
+            var elementos = document.getElementsByName('ex6_checkbox');
+            var contador = 0;
+            for (var i = 0; i < elementos.length; i++) {
+                if (elementos[i].checked) {
+                    contador++;
+                }
+            }
+            window.alert("Questão 6: Total de checkboxes selecionados: " + contador);
+        }
+
+        // Exercício 7[cite: 68]
+        function validarEx7() {
+            var elementos = document.getElementsByName('ex7_radio');
+            var selecionado = false;
+            for (var i = 0; i < elementos.length; i++) {
+                if (elementos[i].checked) {
+                    selecionado = true;
+                    break;
+                }
+            }
+            if (!selecionado) {
+                window.alert("Questão 7: Selecione pelo menos uma opção de radio!");
+            } else {
+                window.alert("Questão 7: Validação bem sucedida!");
+            }
+        }
+
+        function validarEx8() {
+            if (!validarCampoTextoObrigatorio('ex8_nome') || !validarCampoTextoObrigatorio('ex8_login') || !validarCampoTextoObrigatorio('ex8_senha')) {
+                window.alert("Questão 8: Todos os campos (nome, login e senha) são obrigatórios!");
+                return false;
+            }
+
+            var senha = document.getElementById('ex8_senha').value;
+            var regexMaiuscula = /[A-Z]/;
+            var regexMinuscula = /[a-z]/;
+            var regexEspecial = /[^A-Za-z0-9]/;
+
+            if (senha.length < 4 || !regexMaiuscula.test(senha) || !regexMinuscula.test(senha) || !regexEspecial.test(senha)) {
+                window.alert("Questão 8: A senha é fraca! Precisa de min. 4 caracteres, 1 letra maiúscula, 1 minúscula e 1 caractere especial.");
+                return false;
+            }
+
+            window.alert("Questão 8: Validação bem sucedida! Formulário seria enviado.");
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <h1>E3 - PROGWEB</h1>
+    <form onsubmit="return validarEx1()">
+        <h3>Questão 1: Texto Obrigatório via onsubmit</h3>
+        <input type="text" id="ex1_texto" placeholder="Digite algo...">
+        <input type="submit" value="Enviar">
+    </form>
+    <hr>
+
+    <form>
+        <h3>Questão 2: Tamanho (1 a 10 caracteres) via onClick</h3>
+        <input type="text" id="ex2_texto" placeholder="Max 10 caracteres...">
+        <input type="button" onclick="validarEx2()" value="Validar">
+    </form>
+    <hr>
+
+    <form>
+        <h3>Questão 3: Número inteiro positivo válido</h3>
+        <input type="text" id="ex3_texto" placeholder="Digite um inteiro positivo...">
+        <input type="button" onclick="validarEx3()" value="Validar">
+    </form>
+    <hr>
+
+    <form>
+        <h3>Questão 4: Combobox (Select)</h3>
+        <select id="ex4_select">
+            <option value="">Selecione uma opção...</option>
+            <option value="1">Opção Válida 1</option>
+            <option value="2">Opção Válida 2</option>
+        </select>
+        <input type="button" onclick="validarEx4()" value="Validar">
+    </form>
+    <hr>
+
+    <form>
+        <h3>Questão 5: Único Checkbox</h3>
+        <input type="checkbox" id="ex5_checkbox"> Confirmo que li os termos. <br><br>
+        <input type="button" onclick="validarEx5()" value="Validar">
+    </form>
+    <hr>
+
+    <form>
+        <h3>Questão 6: Múltiplos Checkboxes (Contagem)</h3>
+        <input type="checkbox" name="ex6_checkbox"> Opção A <br>
+        <input type="checkbox" name="ex6_checkbox"> Opção B <br>
+        <input type="checkbox" name="ex6_checkbox"> Opção C <br><br>
+        <input type="button" onclick="contarEx6()" value="Contar Selecionados">
+    </form>
+    <hr>
+
+    <form>
+        <h3>Questão 7: Múltiplos Radio Buttons</h3>
+        <input type="radio" name="ex7_radio"> Masculino <br>
+        <input type="radio" name="ex7_radio"> Feminino <br>
+        <input type="radio" name="ex7_radio"> Outro <br><br>
+        <input type="button" onclick="validarEx7()" value="Validar">
+    </form>
+    <hr>
+
+    <form onsubmit="return validarEx8()">
+        <h3>Questão 8: Validação Completa + Senha Forte via onsubmit</h3>
+        Nome: <input type="text" id="ex8_nome"><br><br>
+        Login: <input type="text" id="ex8_login"><br><br>
+        Senha: <input type="password" id="ex8_senha"> <br><br>
+        <input type="submit" value="Enviar Dados">
+    </form>
+</body>
+</html>
